@@ -1,0 +1,114 @@
+#include <stdio.h>
+#include <conio.h>
+
+int player = 1, x, choice;
+char schema, y;
+char ep[10] = {'o', '1', '2', '3', '4', '5', '6', '7', '8', '9'};
+
+void board() {
+
+    system("cls");
+    printf("Player 1(X) - Player 2(O)\n");
+
+    printf("     |     |     \n");
+    printf("  %c  |  %c  |  %c \n", ep[1], ep[2], ep[3]);
+
+    printf("_____|_____|_____\n");
+    printf("     |     |     \n");
+
+    printf("  %c  |  %c  |  %c  \n", ep[4], ep[5], ep[6]);
+
+    printf("_____|_____|_____\n");
+    printf("     |     |     \n");
+    
+    printf("  %c  |  %c  |  %c  \n", ep[7], ep[8], ep[9]);
+    printf("     |     |     \n");
+}
+
+int cwin() {
+    if (ep[1] == ep[2] && ep[2] == ep[3])
+        return 1;
+
+    else if (ep[4] == ep[5] && ep[5] == ep[6])
+        return 1;
+
+    else if (ep[7] == ep[8] && ep[8] == ep[9])
+        return 1;
+
+    else if (ep[1] == ep[4] && ep[4] == ep[7])
+        return 1;
+
+    else if (ep[2] == ep[5] && ep[5] == ep[8])
+        return 1;
+
+    else if (ep[3] == ep[6] && ep[6] == ep[9])
+        return 1;
+
+    else if (ep[1] == ep[5] && ep[5] == ep[9])
+        return 1;
+
+    else if (ep[1] != '1' && ep[2] != '2' && ep[3] != '3' && ep[4] != '4' && ep[5] != '5' && ep[6] != '6' && ep[7] != '7' && ep[8] != '8' && ep[9] != '9')
+        return 0;
+    else 
+        return -1;
+}
+
+int main() {
+
+    do {
+        board();
+        player = (player % 2)? 1 : 2;
+
+        printf("Player %d, choose a number: ", player);
+        scanf("%d", &choice);
+
+        schema = (player == 1) ? 'X' : 'O';
+
+        if (choice == 1 && ep[1] == '1')
+            ep[1] = schema;
+
+        else if (choice == 2 && ep[2] == '2')
+            ep[2] = schema;
+
+        else if (choice == 3 && ep[3] == '3')
+            ep[3] = schema;
+
+        else if (choice == 4 && ep[4] == '4')
+            ep[4] = schema;
+
+        else if (choice == 5 && ep[5] == '5')
+            ep[5] = schema;
+
+        else if (choice == 6 && ep[6] == '6')
+            ep[6] = schema;
+
+        else if (choice == 7 && ep[7] == '7')
+            ep[7] = schema;
+
+        else if (choice == 8 && ep[8] == '8')
+            ep[8] = schema;
+
+        else if (choice == 9 && ep[9] == '9')
+            ep[9] = schema;
+        
+        else {
+            printf("Wrong Move!");
+            player--;
+            getch();
+        }
+
+        x = cwin();
+        player++;
+    }
+
+    while (x == -1);
+
+    board();
+
+    if (x == 1)
+        printf("Player %d Wins!", --player);
+    else printf("DRAW");
+
+    getch();
+    return 0;
+}
